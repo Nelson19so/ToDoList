@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}" />
+  </head>
+  <body>
+    {% block content %}
+    <div class="container-form">
+      {% if page == 'signup' %}
+
+      <center>
+        <div class="container-signup">
+          <h1>Register Here</h1>
+          <p class="heading">Create your special account here</p>
+
+          <form action="" method="post">
+            {% csrf_token %}
+
+            <div class="container-username">
+              <label for="#username">Username: </label>
+              <input type="text" name="username" />
+            </div>
+            <div class="container-email">
+              <label for="email">Email:</label>
+              <input type="email" name="email" id="" />
+            </div>
+            <div class="contaner-passwor">
+              <label for="password">Password: </label>
+              <input type="password" name="password" />
+            </div>
+
+            <div class="container-comfirm_password">
+              <label for="passwor"> comfirm password </label>
+              <input type="password" name="comfirm_password" />
+            </div>
+
+            <div class="error-msg">{% include 'messageform.html' %}</div>
+
+            <div class="submit-button">
+              <button>Create Account</button>
+            </div>
+          </form>
+          <p>Already with us? <a href="{% url 'login' %}">Login here</a></p>
+        </div>
+      </center>
+
+      {% else %}
+      <center>
+        <div class="container-login">
+          <h1>Login here</h1>
+          <p class="heading">Continue with your todos here</p>
+          <form action="" method="post">
+            {% csrf_token %}
+
+            <div class="container-username">
+              <label for="#username">Username: </label>
+              <input type="text" name="username" />
+            </div>
+
+            <div class="contaner-passwor">
+              <label for="password">Password: </label>
+              <input type="password" name="password" />
+            </div>
+
+            <div class="error-msg">{% include 'messageform.html' %}</div>
+
+            <div class="submit-button">
+              <button>Log in</button>
+            </div>
+          </form>
+          <p>
+            Need a new account? <a href="{% url 'signup' %}">Create here</a>
+          </p>
+        </div>
+      </center>
+
+      {% endif %}
+    </div>
+    {% endblock %}
+  </body>
+</html>
