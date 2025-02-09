@@ -122,6 +122,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/todos/'
+LOGIN_REDIRECT_URL = '/todolist/'
 
-LOGOUT_REDIRECT_URL = '/logedout/'
+LOGOUT_REDIRECT_URL = '/login/'

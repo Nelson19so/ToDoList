@@ -11,24 +11,49 @@ from django.contrib import messages
 
 @login_required(login_url='login')
 def todos(request):
-  todos = TodoItems.objects.all()
+  todos = TodoItems.objects.filter(user=request.user)
+  no_todos = TodoItems.objects.filter(user=request.user, completed=False).count()
+
+  if request.method == "POST":
+    # handle saving todos
+    if 'submit_todo' in request.POST:
+      form = TodoItemsForm(request.POST)
+      
+      if form.is_valid():
+        todo = form.save(commit=False)
+        if todo.todo:
+          task = TodoItems(
+            todo = form.cleaned_data['todo'],
+            completed = form.cleaned_data['completed']
+          )
+          task.save()
+        
+        else:
+          task = TodoItems(
+            completed = form.cleaned_data['check']
+          )
+          task.save()
     
+    # handle update todo
+    elif 'delete_todo' in request.POST:
+      todo_id = request.POST.get('todo_id')
+
+      if todo_id:
+        try:
+          todo = TodoItems.objects.get(id=todo_id)
+          todo.delete()
+        except TodoItems.DoesNotExist:
+          pass
+        
   # renders html template
-  return render(request, 'todos/todo.html', {"todos": todos})
+  return render(request, 'todos/index.html', {"todos": todos, "no_todos":no_todos})
 
-
-def todo_items(request, pk):
-  todoitems = TodoItems.objects.get(pk=pk)
-
-  # renders html template
-  return render(request, 'todos/todositems.html', {"todoitems":todoitems})
-
-
+# Login form for todos
 def login(request):
   page = 'login'
 
   if request.user.is_authenticated:
-      return redirect('todos')
+      return redirect('todolist')
   
   if request.method == 'POST':
     username = request.POST.get('username')
@@ -38,36 +63,38 @@ def login(request):
     
     if user is not None:
       auth_login(request, user)
-      return redirect('todos')
+      return redirect('todolist')
 
     messages.error(request, 'username or email not found')
-
       
-  return render(request, 'todos/login_signup.html', {"page": page})
+  return render(request, 'todos/auth.html', {"page": page})
 
 
 def signup(request):
   page = 'signup'
-  
+
   if request.method == "POST":
     username = request.POST.get('username')
     email = request.POST.get('email')
     password = request.POST.get('password')
     comfirm_password = request.POST.get("comfirm_password")
 
-    not_recommended_lenght = 5
+    not_recommended_lenght = 2
 
     if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
       messages.error(request, 'username or email already exist')
+
+    elif len(username) <= not_recommended_lenght:
+      messages.error(request, 'username is too short')
+
+    elif len(email) <= not_recommended_lenght:
+      messages.error(request, 'email address is too short')
 
     elif password != comfirm_password:
       messages.error(request, 'password do no match')
       
     elif len(password) <= not_recommended_lenght:
       messages.error(request, 'password is too short')
-      
-    elif len(username) <= not_recommended_lenght:
-      messages.error(request, 'username is too short')
 
     else:
       user = User.objects.create_user(username=username, email=email, password=password)   
@@ -75,31 +102,10 @@ def signup(request):
 
       return redirect('login')
     
-  return render(request, 'todos/login_signup.html', {'page': page})
+  return render(request, 'todos/auth.html', {'page': page})
 
 
-def blog(request):
-  return render(request, 'base.html')
-
-
+# Log out view
 def logout(request):
   logout(request)
-  return redirect('logedout')
-
-
-def loged_out(request):
-  return render(request, 'logedout.html')
-
-
-def todos_list_form(request):
-  form = TodoItemsForm
-
-  if request.method == "POST":
-    print(request.POST)
-    form = TodoItemsForm(request.POST)
-
-    if form.is_valid():
-      form.save()
-  else:
-    form = TodoItemsForm()
-  return render(request, 'todos/form.html', {"form":form})
+  return redirect('login')

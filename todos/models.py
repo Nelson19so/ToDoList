@@ -7,8 +7,6 @@ from django.contrib.auth.models import User
 class TodoItems(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
   todo = models.CharField(max_length=100)
-  description = models.TextField(max_length=500)
-  day = models.CharField(max_length=255)
   date_created = models.DateTimeField(auto_now_add=True)
   completed = models.BooleanField(default=False)
 

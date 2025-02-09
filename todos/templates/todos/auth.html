@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up form for TodoList</title>
+
+    <link rel="icon" href="{% static '/images/favicon-32x32.png' %}" />
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}" />
+  </head>
+  <body>
+    {% if page == 'login' %}
+    <div class="container-form login" id="container-form">
+      <div class="container-padder">
+        <center>
+          <div class="form">
+            <div class="form-padder">
+              <form method="post">
+                {% csrf_token %}
+                <h1>ToDoList</h1>
+                <p>
+                  Continue to finish up your todo task fast and make time on
+                  your side
+                </p>
+
+                <div class="container-username input-container">
+                  <label for="username">Username:</label>
+                  <input
+                    type="text"
+                    id="username"
+                    class="form-input-auth"
+                    placeholder="username"
+                    name="username"
+                  />
+                </div>
+
+                <div class="container-passwor input-container">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="password"
+                    class="form-input-auth"
+                    name="password"
+                  />
+                </div>
+
+                <button class="submit-sign-up" type="submit">
+                  Continue Todo
+                </button>
+
+                {% include 'messageform.html' %}
+
+                <p>
+                  Don't have a todo account?
+                  <a href="{% url 'register' %}">Create Todo</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </center>
+      </div>
+    </div>
+
+    {%else%}
+
+    <div class="container-form" id="container-form">
+      <div class="container-padder">
+        <center>
+          <div class="form">
+            <div class="form-padder">
+              <form method="post">
+                {% csrf_token %}
+
+                <h1>ToDoList</h1>
+                <p>Create your todolist for more efficient time management</p>
+
+                <div class="container-username input-container">
+                  <label for="username">Username:</label>
+                  <input
+                    type="text"
+                    id="username"
+                    class="form-input-auth"
+                    placeholder="username"
+                    name="username"
+                  />
+                </div>
+
+                <div class="container-email input-container">
+                  <label for="email">Email:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-input-auth"
+                    placeholder="email"
+                    name="email"
+                  />
+                </div>
+
+                <div class="container-passwor input-container">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="password"
+                    class="form-input-auth"
+                    name="password"
+                  />
+                </div>
+
+                <div class="comfirm-password input-container">
+                  <label for="cpassword">comfirm password</label>
+                  <input
+                    type="password"
+                    id="cpassword"
+                    class="form-input-auth"
+                    placeholder="comfirm password"
+                    name="comfirm_password"
+                  />
+                </div>
+
+                <button class="submit-sign-up" type="submit">
+                  Create Account
+                </button>
+
+                {% include 'messageform.html' %}
+
+                <p>
+                  Alredy have a todo account?
+                  <a href="{% url 'login' %}">Continue</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </center>
+      </div>
+    </div>
+    {% endif %}
+
+    <script src="./index.js"></script>
+  </body>
+</html>

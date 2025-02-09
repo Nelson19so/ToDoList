@@ -6,4 +6,4 @@ from .models import TodoItems
 class TodoItemsForm(forms.ModelForm):
   class Meta:
     model = TodoItems
-    fields = ('todo', 'description', 'day')
+    fields = ('todo', 'completed')
