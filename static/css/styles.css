@@ -110,7 +110,6 @@ body {
   .user-toggle {
   padding-top: 20px;
   color: var(--white);
-  box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.1);
 }
 
 .container-parent
@@ -135,6 +134,7 @@ body {
   overflow: hidden;
   display: flex;
   justify-content: space-between;
+  box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.1);
 }
 
 .container-parent
@@ -376,6 +376,7 @@ body {
 
 .sm-screen ul {
   display: flex;
+  margin-left: -40px;
   justify-content: space-around;
 }
 
@@ -429,6 +430,11 @@ body {
 
 .login {
   height: 100vh;
+  padding-top: 6%;
+}
+
+.auth-form {
+  height: 110vh;
 }
 
 .container-form {
@@ -526,6 +532,11 @@ body {
   padding-bottom: 10px;
 }
 
+.btn-delete {
+  float: right;
+  margin-top: -35px;
+}
+
 .submit-sign-up {
   width: 100%;
   box-sizing: border-box;
@@ -538,8 +549,15 @@ body {
   cursor: pointer;
 }
 
-.btn-post-todos {
-  padding: 20px 0;
+.btn-update-todos {
+  display: block;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.btn-post-todos,
+.btn-update-todos {
+  padding: 22px 0;
   box-sizing: border-box;
   height: 100%;
   float: left;
@@ -549,9 +567,17 @@ body {
   transition: 1s;
   background-color: var(--white);
   color: var(--very-Dark-Grayish-Blue) !important;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 .btn-post-todos:hover {
+  background-color: var(--Very-Light-Gray);
+}
+
+.btn-update-todos:hover {
   background-color: var(--Very-Light-Gray);
 }
 
@@ -595,6 +621,7 @@ body {
   outline: none;
   box-sizing: border-box;
   outline: none;
+  font-size: 16px;
 }
 
 .add-todo::placeholder {
@@ -816,5 +843,11 @@ body {
   .container-form .container-padder .form {
     width: 330px;
     margin-top: 20%;
+  }
+
+  /* btn */
+  .btn-post-todos,
+  .btn-update-todos {
+    padding: 22px 5px;
   }
 }

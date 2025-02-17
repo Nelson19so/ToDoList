@@ -1,27 +1,46 @@
-const divContainer = document.getElementById("container-todos");
-const activeTodos = document.getElementById("active_todos");
-const checkbox = document.getElementById("cbx-12");
-const TodosChildren = document.getElementById("container-main-todos");
+const filterCompletedItems = document.querySelectorAll("#filterCompleted");
+const filterAll = document.querySelectorAll("#filterAll");
+const filterActive = document.querySelectorAll("#filterActive");
 
-activeTodos.addEventListener("click", () => {
-  let i;
-  let g;
-  for (i = 0; i < todosList.length; i++) {
-    for (g = 0; g < checkbox.length; g++) {
-      if (checkbox[g].checked) {
-        divContainer[i].style.display = "none";
-        console.log(
-          `check items ${checkbox[i].checked ? "checked" : "not checked"}`
-        );
+const todoItems = document.querySelectorAll(".container-main-todos");
+const completeCheck = document.querySelectorAll(".completeCheck");
+
+filterCompletedItems.forEach((completed) => {
+  completed.addEventListener("click", () => {
+    completeCheck.forEach((check) => {
+      const todoItem = check.closest(".container-main-todos");
+      if (check.checked) {
+        todoItem.style.display = "block";
       } else {
-        divContainer[i].style.display = "block";
+        todoItem.style.display = "none";
       }
-    }
-  }
+    });
+  });
 });
 
-const submitForm = document.getElementById("submit");
-// submitForm.addEventListener("submit", () => {});
+filterActive.forEach((active) => {
+  active.addEventListener("click", () => {
+    completeCheck.forEach((check) => {
+      const todoItem = check.closest(".container-main-todos");
+      if (!check.checked) {
+        todoItem.style.display = "block";
+      } else {
+        todoItem.style.display = "none";
+      }
+    });
+  });
+});
+
+filterAll.forEach((allItems) => {
+  allItems.addEventListener("click", () => {
+    completeCheck.forEach((check) => {
+      const todoItem = check.closest(".container-main-todos");
+      if (check.checked || !check.checked) {
+        todoItem.style.display = "block";
+      }
+    });
+  });
+});
 
 const btnToggleMode = document.getElementById("toggle-light-dark-mode");
 const lightSvg = document.getElementById("light-mode");
@@ -34,7 +53,7 @@ const imgMobile = document.getElementById("img-mobile");
 lightSvg.style.display = "block";
 darkSvg.style.display = "none";
 
-imgDesktop.src = "./images/bg-desktop-light.jpg";
+imgDesktop.src = "./static/images/bg-desktop-light.jpg";
 
 btnToggleMode.addEventListener("click", () => {
   submit = false;
@@ -42,6 +61,7 @@ btnToggleMode.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
   imgDesktop.src = "static/images/bg-desktop-dark.jpg";
   imgMobile.src = "static/images/bg-mobile-dark.jpg";
+
   todosList.forEach((div) => {
     div.classList.toggle("todoList");
   });
@@ -56,6 +76,7 @@ const addTodoBtn_ = document.getElementById("add-todoBtn-");
 const smScreen = document.getElementById("sm-screen");
 const formContainer = document.getElementById("container-form");
 const containerFooter = document.getElementById("todos-footer");
+const updateTodo = document.getElementById("update-todoBtn");
 
 // Check local storage for saved mode
 const savedMode = localStorage.getItem("mode");
@@ -71,6 +92,7 @@ if (savedMode === "dark") {
   containerFooter.classList.add("todoListFooter");
   addTodo.classList.add("todoList");
   addTodoBtn.classList.add("todoList");
+  updateTodo.classList.add("todoList");
   addTodoBtn_.classList.add("todoList");
 
   containerTodos.classList.add("todoList");
@@ -88,3 +110,21 @@ if (savedMode === "light") {
   lightSvg.style.display = "block";
   darkSvg.style.display = "none";
 }
+
+// if todos in input todos, shows save else shows update todo
+
+const updateTodos = document.getElementById("update-todoBtn");
+const saveTodos = document.getElementById("add-todoBtn");
+const todoInput = document.getElementById("add-todo");
+
+saveTodos.style.display = "none";
+
+todoInput.addEventListener("input", () => {
+  if (todoInput.value === "") {
+    saveTodos.style.display = "none";
+    updateTodos.style.display = "block";
+  } else {
+    saveTodos.style.display = "block";
+    updateTodos.style.display = "none";
+  }
+});

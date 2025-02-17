@@ -1,0 +1,21 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "TodoList Web Application using django and html, css and javascript. this todos authenticate and saves user data to the backend django.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nelson19so/ToDoList.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Nelson19so/ToDoList/issues"
+  },
+  "homepage": "https://github.com/Nelson19so/ToDoList#readme"
+}
