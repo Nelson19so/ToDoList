@@ -116,15 +116,15 @@ if (savedMode === "light") {
 const updateTodos = document.getElementById("update-todoBtn");
 const saveTodos = document.getElementById("add-todoBtn");
 const todoInput = document.getElementById("add-todo");
+const checkBoxPostTodo = document.querySelector(".checkbox-post-todo");
+const updateTodoCheckBtn = document.querySelectorAll(".completeCheck");
 
-saveTodos.style.display = "none";
+checkBoxPostTodo.addEventListener("click", function () {
+  saveTodos.click();
+});
 
-todoInput.addEventListener("input", () => {
-  if (todoInput.value === "") {
-    saveTodos.style.display = "none";
-    updateTodos.style.display = "block";
-  } else {
-    saveTodos.style.display = "block";
-    updateTodos.style.display = "none";
-  }
+updateTodoCheckBtn.forEach((checkBtn) => {
+  checkBtn.addEventListener("click", function () {
+    updateTodo.click();
+  });
 });

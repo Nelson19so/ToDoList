@@ -571,6 +571,7 @@ body {
   border-bottom-right-radius: 5px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+  display: none;
 }
 
 .btn-post-todos:hover {
@@ -614,7 +615,9 @@ body {
 /* --- */
 
 .add-todo {
-  width: 85%;
+  width: 100%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   border: none;
   padding: 20px 10px;
   color: var(--black-color);

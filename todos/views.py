@@ -27,7 +27,6 @@ def todos(request):
             print("adding new item")
             task = TodoItems(
               todo = form.cleaned_data['todo'],
-              completed = form.cleaned_data['completed']
             )
             task.save()
             print("posted new todlist")
