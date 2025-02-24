@@ -1,6 +1,6 @@
 # ToDoList
 
-TodoList Web Application using django and html, css and javascript. this todos authenticate and saves user data to the backend django and toggles to light and dark mode with reader drop list and also responsive.
+Realistic TodoList Web Application using django and html, css and javascript. this todos authenticate and saves user data to the backend django and toggles to light and dark mode with reader drop list and also responsive.
 
 ## Overview
 
@@ -45,7 +45,7 @@ here is an overview of light mode for desktop mode with no data
 here is an overview of dark mode for desktop mode
 ![](./static/images/screenshot/desktop_darkmode_withdata.png)
 
-## Desktop dark mode with data
+## Dark dark mode with data
 
 here is an overview of dark mode for desktop mode
 ![](./static/images/screenshot/desktop_darkmode.png)
@@ -62,7 +62,7 @@ here is an overview of light mode for mobile mode
 here is an overview of light mode for mobile mode
 ![](./static/images/screenshot/mobile_light_modewithnodata.png)
 
-<h3>Desktop mode</h3>
+<h3>Dark mode</h3>
 
 ## mobile dark mode with data
 
