@@ -1,9 +1,12 @@
+// filtering todos
 const filterCompletedItems = document.querySelectorAll("#filterCompleted");
 const filterAll = document.querySelectorAll("#filterAll");
 const filterActive = document.querySelectorAll("#filterActive");
 
 const todoItems = document.querySelectorAll(".container-main-todos");
 const completeCheck = document.querySelectorAll(".completeCheck");
+const todosState = document.getElementById("todos_state");
+const noTodosText = document.getElementById("no_todos_text");
 
 filterCompletedItems.forEach((completed) => {
   completed.addEventListener("click", () => {
@@ -41,6 +44,8 @@ filterAll.forEach((allItems) => {
     });
   });
 });
+
+// --------------------------------------------------------------
 
 const btnToggleMode = document.getElementById("toggle-light-dark-mode");
 const lightSvg = document.getElementById("light-mode");

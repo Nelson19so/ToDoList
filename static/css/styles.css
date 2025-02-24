@@ -363,10 +363,11 @@ body {
   box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.1);
   background-color: var(--white);
   display: none;
+  font-size: 14px;
 }
 
 .sm-screen .padder-sm-footer {
-  padding: 10px 0px;
+  padding: 5px 0px;
   text-align: left;
 }
 
@@ -425,6 +426,14 @@ body {
   margin-top: 40px;
   margin-bottom: 30px;
 }
+
+#todos_state {
+  display: none !important;
+}
+
+/* .display_block {
+  display: block !important;
+} */
 
 /* form */
 
@@ -840,6 +849,7 @@ body {
 
   .sm-screen {
     display: block;
+    border-radius: 7px;
   }
 
   /* form */

@@ -1,0 +1,22 @@
+@login_required(login_url="login") def todos(request): user = request.user if
+request.method == "POST": if user.is_authenticated: #verify if the use is
+authenticated # handle saving todos if 'submit_todo' in request.POST: #button
+for submit todos form = TodoItemsForm(request.POST) data =
+request.POST.get('todo') #getting todo input to verify the length if len(data) >
+3: #checking length if form.is_valid(): print("adding new item") todo_item =
+form.save(commit=False) todo_item.user = request.user todo_item.save()
+print("posted new todlist") return redirect('todolist') else: return else:
+print("Item less ( < ) than 3") return HttpResponse("
+<h3>Item should be more than 3 characters in length</h3>
+") # update complete or false for todolist status elif 'update_todo' in
+request.POST: for items in TodoItems.objects.all(): if request.POST.get("check-"
++ str(items.id)) == "clicked": items.completed = True else: items.completed =
+False items.save() print("item saved successfully") else: # redirect user if
+post and not authenticated return redirect('login') else: form = TodoItemsForm()
+todos = TodoItems.objects.filter(user=user) completed_todos =
+TodoItems.objects.filter(user=user, completed=True) active_todos =
+TodoItems.objects.filter(user=user, completed=False) no_todos =
+TodoItems.objects.filter(user=user, completed=False).count() context = {"todos":
+todos, "no_todos":no_todos, "active_todos":active_todos,
+"completed_todos":completed_todos, "user":user} # renders html template return
+render(request, 'todos/index.html', context)

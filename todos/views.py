@@ -10,46 +10,71 @@ from django.contrib import messages
 
 # Create your views here.
 
-@login_required(login_url='login')
 def todos(request):
 
-  if request.method == "POST":
-    # handle saving todos
-    if 'submit_todo' in request.POST:
-      form = TodoItemsForm(request.POST)
+  user = request.user #request from accessing the user
 
-      data = request.POST.get('todo')
+  if request.method == "POST": #posting data
+    if user.is_authenticated: #verify if the use is authenticated
+      # handle todo post to the database
+      if 'submit_todo' in request.POST: #button for submit todos
+        form = TodoItemsForm(request.POST)
 
-      if len(data) > 3:
-        if form.is_valid():
-          todo = form.save(commit=False)
-          if todo.todo:
+        data = request.POST.get('todo') #getting todo input to verify the length
+
+        if len(data) > 3: #checking length
+          # validating data to save it for the user
+          if form.is_valid():
             print("adding new item")
-            task = TodoItems(
-              todo = form.cleaned_data['todo'],
-            )
-            task.save()
+            todo_item = form.save(commit=False)
+            todo_item.user = request.user 
+            # saves todo to te database
+            todo_item.save()
             print("posted new todlist")
             return redirect('todolist')
 
-      else:
-        print("Item less ( < ) than 3") 
-        return HttpResponse("<h3 style='color:red'>Item should be more than 3 characters in length</h3>")
-
-    elif 'update_todo' in request.POST:
-      for items in TodoItems.objects.all():
-        if request.POST.get("check-" + str(items.id)) == "clicked":
-          items.completed = True
+          else:
+            return #returns to us
+          
         else:
-          items.completed = False
+          print("Item less ( < ) than 3")
+          return HttpResponse("<h3>Item should be more than 3 characters in length</h3>")
 
-        items.save()
-        print("item saved successfully")
 
-  todos = TodoItems.objects.filter(user=request.user)
-  no_todos = TodoItems.objects.filter(user=request.user, completed=False).count()
+      # update complete or false for todolist status
+      elif 'update_todo' in request.POST:
+        for items in TodoItems.objects.all():
+          if request.POST.get("check-" + str(items.id)) == "clicked":
+            items.completed = True
+          else:
+            items.completed = False
+
+          items.save()
+          print("item saved successfully")
+
+    else:
+      # redirect user if post and not authenticated
+      return redirect('login')
+  
+  else:
+    form = TodoItemsForm()
+
+  if user.is_authenticated:
+    todos = TodoItems.objects.filter(user=user)
+    completed_todos = TodoItems.objects.filter(user=user, completed=True)
+    active_todos = TodoItems.objects.filter(user=user, completed=False)
+    no_todos = TodoItems.objects.filter(user=user, completed=False).count()
+
+    context = {"todos": todos, "no_todos":no_todos, "active_todos":active_todos, 
+              "completed_todos":completed_todos, "user":user}
+    template_name = 'todos/index.html'
+  
+  else:
+    context = {}
+    template_name = 'todos/index.html'
+    
   # renders html template
-  return render(request, 'todos/index.html', {"todos": todos, "no_todos":no_todos})
+  return render(request, template_name, context)
 
 
 # Delete todolist view
@@ -58,15 +83,19 @@ def delete_todo(request, pk):
   todo = TodoItems.objects.get(pk=pk)
   todo.delete()
   print("deleted todolist successfully")
+
+  #redirecting the user to todolist page
   return redirect('todolist')
 
 
 # Delete completed todolist view
 @login_required(login_url='login')
-def delete_completed_todos(request):
+def delete_completed_todos(request):  
   todos = TodoItems.objects.filter(completed=True)
   todos.delete()
   print('deleted all completed todolist')
+
+  # redirecting the user to todolist page
   return redirect('todolist')
 
 
