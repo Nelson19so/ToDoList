@@ -817,14 +817,23 @@ body {
   }
 }
 
+.container-parent
+  .container-parent-padder
+  .bottom-container-container-items
+  .bottom-container-padder {
+  padding: 10px 10px;
+}
+
 @media only screen and (max-width: 689px) {
   .container-parent
     .container-parent-padder
     .bottom-container-container-items
     .bottom-container-padder
     .box-todos-container {
-    width: 370px;
-    margin-top: -220px;
+    width: 350px;
+    margin-top: -190px;
+    font-size: smaller;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   }
 
   .img-desktop {

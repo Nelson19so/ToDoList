@@ -60,19 +60,24 @@ darkSvg.style.display = "none";
 
 imgDesktop.src = "./static/images/bg-desktop-light.jpg";
 
-btnToggleMode.addEventListener("click", () => {
+btnToggleMode.addEventListener("click", (e) => {
+  e.preventDefault();
   submit = false;
 
   document.body.classList.toggle("dark-mode");
   imgDesktop.src = "static/images/bg-desktop-dark.jpg";
   imgMobile.src = "static/images/bg-mobile-dark.jpg";
+  addTodo.classList.add("todoList");
+  addTodoBtn.classList.add("todoList");
+  addTodoBtn_.classList.add("todoList");
+  smScreen.classList.add("todoListFooter");
 
   todosList.forEach((div) => {
     div.classList.toggle("todoList");
   });
   const mode = document.body.classList.contains("dark-mode") ? "dark" : "light";
   localStorage.setItem("mode", mode);
-  window.location.reload();
+  // window.location.reload();
 });
 
 const addTodo = document.getElementById("add-todo");
@@ -114,6 +119,10 @@ if (savedMode === "light") {
   imgMobile.src = "./static/images/bg-mobile-light.jpg";
   lightSvg.style.display = "block";
   darkSvg.style.display = "none";
+  smScreen.classList.remove("todoListFooter");
+  addTodoBtn.classList.remove("todoList");
+  updateTodo.classList.remove("todoList");
+  removeTodoBtn_.classList.remove("todoList");
 }
 
 // if todos in input todos, shows save else shows update todo

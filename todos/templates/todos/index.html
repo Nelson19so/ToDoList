@@ -1,338 +1,320 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% extends 'base.html' %}  <!-- extending templating to base.html  -->
 
-    <title>TodoList WebApp</title>
-    <link rel="icon" href="{% static '/images/favicon-32x32.png' %}" />
-    <link rel="stylesheet" href="{% static '/css/styles.css' %}" />
-  </head>
-  <body>
-    <div class="container-parent">
-      <div class="container-parent-padder">
-        <div class="top-container-img">
-          <img
-            src="{% static '/images/bg-desktop-light.jpg' %}"
-            alt=""
-            class="img-desktop"
-            id="img-desktop"
-          />
-          <img
-            src="{% static '/images/bg-mobile-light.jpg' %}"
-            alt=""
-            class="img-mobile"
-            id="img-mobile"
-          />
-        </div>
+{% load static %} <!-- loads static like css, js images -->
 
-        <div class="bottom-container-container-items">
-          <div class="bottom-container-padder">
-            <center>
-              <div class="box-todos-container">
-                <div class="header">
-                  <div class="container-logo"><h1>TODO</h1></div>
-                  <div class="user-toggle">
-                    <button class="btn-transparent" id="toggle-light-dark-mode">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="26"
-                        height="26"
-                        id="light-mode"
-                      >
-                        <path
-                          fill="#FFF"
-                          fill-rule="evenodd"
-                          d="M13 0c.81 0 1.603.074 2.373.216C10.593 1.199 7 5.43 7 10.5 7 16.299 11.701 21 17.5 21c2.996 0 5.7-1.255 7.613-3.268C23.22 22.572 18.51 26 13 26 5.82 26 0 20.18 0 13S5.82 0 13 0z"
-                        />
-                      </svg>
+{% block title %} <!-- adding block title for the page  -->
+  ToDoList 
+{% endblock %} <!-- closing tag -->
 
-                      <!-- dark svg -->
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="26"
-                        height="26"
-                        id="dark-mode"
-                      >
-                        <path
-                          fill="#FFF"
-                          fill-rule="evenodd"
-                          d="M13 21a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-5.657-2.343a1 1 0 010 1.414l-2.121 2.121a1 1 0 01-1.414-1.414l2.12-2.121a1 1 0 011.415 0zm12.728 0l2.121 2.121a1 1 0 01-1.414 1.414l-2.121-2.12a1 1 0 011.414-1.415zM13 8a5 5 0 110 10 5 5 0 010-10zm12 4a1 1 0 110 2h-3a1 1 0 110-2h3zM4 12a1 1 0 110 2H1a1 1 0 110-2h3zm18.192-8.192a1 1 0 010 1.414l-2.12 2.121a1 1 0 01-1.415-1.414l2.121-2.121a1 1 0 011.414 0zm-16.97 0l2.121 2.12A1 1 0 015.93 7.344L3.808 5.222a1 1 0 011.414-1.414zM13 0a1 1 0 011 1v3a1 1 0 11-2 0V1a1 1 0 011-1z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
+{% block content %} <!-- html begins here -->
+<div class="container-parent">
+  <div class="container-parent-padder">
+    <div class="top-container-img">
+      <img
+        src="{% static '/images/bg-desktop-light.jpg' %}"
+        alt=""
+        class="img-desktop"
+        id="img-desktop"
+      />
+      <img
+        src="{% static '/images/bg-mobile-light.jpg' %}"
+        alt=""
+        class="img-mobile"
+        id="img-mobile"
+      />
+    </div>
 
-                <form method="post">
-                  {% csrf_token %}
-                  <div class="container-add-todos">
-                    <div class="check-todos" id="add-todoBtn-">
-                      <!--  -->
-                      <div class="checkbox-wrapper-12">
-                        <div class="cbx">
-                          <input
-                            type="checkbox"
-                            class="checkbox-post-todo"
-                            id="cbx-12"
-                            name="completed-"
-                          />
-
-                          <label for="cbx-12"></label>
-                          <svg
-                            fill="none"
-                            viewBox="0 0 15 14"
-                            height="14"
-                            width="15"
-                          >
-                            <path d="M2 8.36364L6.23077 12L13 2"></path>
-                          </svg>
-                        </div>
-
-                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-                          <defs>
-                            <filter id="goo-12">
-                              <feGaussianBlur
-                                result="blur"
-                                stdDeviation="4"
-                                in="SourceGraphic"
-                              ></feGaussianBlur>
-                              <feColorMatrix
-                                result="goo-12"
-                                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7"
-                                mode="matrix"
-                                in="blur"
-                              ></feColorMatrix>
-                              <feBlend
-                                in2="goo-12"
-                                in="SourceGraphic"
-                              ></feBlend>
-                            </filter>
-                          </defs>
-                        </svg>
-                      </div>
-                      <!--  -->
-                    </div>
-                    <input
-                      type="text"
-                      class="add-todo"
-                      placeholder="Add your todo list"
-                      id="add-todo"
-                      name="todo"
-                      maxlength="27"
+    <div class="bottom-container-container-items">
+      <div class="bottom-container-padder">
+        <center>
+          <div class="box-todos-container">
+            <div class="header">
+              <div class="container-logo"><h1>TODO</h1></div>
+              <div class="user-toggle">
+                <button class="btn-transparent" id="toggle-light-dark-mode">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="26"
+                    height="26"
+                    id="light-mode"
+                  >
+                    <path
+                      fill="#FFF"
+                      fill-rule="evenodd"
+                      d="M13 0c.81 0 1.603.074 2.373.216C10.593 1.199 7 5.43 7 10.5 7 16.299 11.701 21 17.5 21c2.996 0 5.7-1.255 7.613-3.268C23.22 22.572 18.51 26 13 26 5.82 26 0 20.18 0 13S5.82 0 13 0z"
                     />
-                    <button
-                      class="btn-post-todos"
-                      id="add-todoBtn"
-                      type="submit"
-                      name="submit_todo"
-                    >
-                      Save
-                    </button>
-                    <button
-                      class="btn-update-todos"
-                      id="update-todoBtn"
-                      type="submit"
-                      name="update_todo"
-                    >
-                      Update
-                    </button>
+                  </svg>
+
+                  <!-- dark svg -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="26"
+                    height="26"
+                    id="dark-mode"
+                  >
+                    <path
+                      fill="#FFF"
+                      fill-rule="evenodd"
+                      d="M13 21a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-5.657-2.343a1 1 0 010 1.414l-2.121 2.121a1 1 0 01-1.414-1.414l2.12-2.121a1 1 0 011.415 0zm12.728 0l2.121 2.121a1 1 0 01-1.414 1.414l-2.121-2.12a1 1 0 011.414-1.415zM13 8a5 5 0 110 10 5 5 0 010-10zm12 4a1 1 0 110 2h-3a1 1 0 110-2h3zM4 12a1 1 0 110 2H1a1 1 0 110-2h3zm18.192-8.192a1 1 0 010 1.414l-2.12 2.121a1 1 0 01-1.415-1.414l2.121-2.121a1 1 0 011.414 0zm-16.97 0l2.121 2.12A1 1 0 015.93 7.344L3.808 5.222a1 1 0 011.414-1.414zM13 0a1 1 0 011 1v3a1 1 0 11-2 0V1a1 1 0 011-1z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <form method="post">
+              {% csrf_token %}
+              <div class="container-add-todos">
+                <div class="check-todos" id="add-todoBtn-">
+                  <!--  -->
+                  <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input
+                        type="checkbox"
+                        class="checkbox-post-todo"
+                        id="cbx-12"
+                        name="completed-"
+                      />
+
+                      <label for="cbx-12"></label>
+                      <svg
+                        fill="none"
+                        viewBox="0 0 15 14"
+                        height="14"
+                        width="15"
+                      >
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <filter id="goo-12">
+                          <feGaussianBlur
+                            result="blur"
+                            stdDeviation="4"
+                            in="SourceGraphic"
+                          ></feGaussianBlur>
+                          <feColorMatrix
+                            result="goo-12"
+                            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7"
+                            mode="matrix"
+                            in="blur"
+                          ></feColorMatrix>
+                          <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
+                        </filter>
+                      </defs>
+                    </svg>
                   </div>
+                  <!--  -->
+                </div>
+                <input
+                  type="text"
+                  class="add-todo"
+                  placeholder="Add your todo list"
+                  id="add-todo"
+                  name="todo"
+                  maxlength="27"
+                />
+                <button
+                  class="btn-post-todos"
+                  id="add-todoBtn"
+                  type="submit"
+                  name="submit_todo"
+                >
+                  Save
+                </button>
+                <button
+                  class="btn-update-todos"
+                  id="update-todoBtn"
+                  type="submit"
+                  name="update_todo"
+                >
+                  Update
+                </button>
+              </div>
 
-                  <div class="container-todos" id="container-todos">
-                    <div class="container-child">
-                      {% if user.is_authenticated and todos %}
-                      <div>
-                        {% for todo in todos %}
-                        <div
-                          class="container-main-todos"
-                          id="container-main-todos"
-                        >
-                          <div class="container-right">
-                            <input
-                              type="hidden"
-                              value="todo-{{todos.id}}"
-                              name="todo_id"
-                            />
-                            <div class="checkbox-">
-                              <div class="checkbox-wrapper-12">
-                                <div class="cbx">
-                                  {% if todo.completed %}
-                                  <input
-                                    type="checkbox"
-                                    id="cbx-12"
-                                    name="check-{{todo.id}}"
-                                    value="clicked"
-                                    class="completeCheck"
-                                    checked
-                                  />
-                                  {% else %}
-                                  <input
-                                    type="checkbox"
-                                    id="cbx-12"
-                                    name="check-{{todo.id}}"
-                                    value="clicked"
-                                    class="completeCheck"
-                                  />
-                                  {% endif %}
+              <div class="container-todos" id="container-todos">
+                <div class="container-child">
+                  {% if user.is_authenticated and todos %}
+                  <div>
+                    {% for todo in todos %}
+                    <div class="container-main-todos" id="container-main-todos">
+                      <div class="container-right">
+                        <input
+                          type="hidden"
+                          value="todo-{{todos.id}}"
+                          name="todo_id"
+                        />
+                        <div class="checkbox-">
+                          <div class="checkbox-wrapper-12">
+                            <div class="cbx">
+                              {% if todo.completed %}
+                              <input
+                                type="checkbox"
+                                id="cbx-12"
+                                name="check-{{todo.id}}"
+                                value="clicked"
+                                class="completeCheck"
+                                checked
+                              />
+                              {% else %}
+                              <input
+                                type="checkbox"
+                                id="cbx-12"
+                                name="check-{{todo.id}}"
+                                value="clicked"
+                                class="completeCheck"
+                              />
+                              {% endif %}
 
-                                  <label for="cbx-12"></label>
-                                  <svg
-                                    fill="none"
-                                    viewBox="0 0 15 14"
-                                    height="14"
-                                    width="15"
-                                  >
-                                    <path d="M2 8.36364L6.23077 12L13 2"></path>
-                                  </svg>
-                                </div>
-
-                                <svg
-                                  version="1.1"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <defs>
-                                    <filter id="goo-12">
-                                      <feGaussianBlur
-                                        result="blur"
-                                        stdDeviation="4"
-                                        in="SourceGraphic"
-                                      ></feGaussianBlur>
-                                      <feColorMatrix
-                                        result="goo-12"
-                                        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7"
-                                        mode="matrix"
-                                        in="blur"
-                                      ></feColorMatrix>
-                                      <feBlend
-                                        in2="goo-12"
-                                        in="SourceGraphic"
-                                      ></feBlend>
-                                    </filter>
-                                  </defs>
-                                </svg>
-                              </div>
+                              <label for="cbx-12"></label>
+                              <svg
+                                fill="none"
+                                viewBox="0 0 15 14"
+                                height="14"
+                                width="15"
+                              >
+                                <path d="M2 8.36364L6.23077 12L13 2"></path>
+                              </svg>
                             </div>
 
-                            {% if todo.completed %}
-                            <p class="completed-todo">{{todo.todo}}</p>
-                            {% else %}
-                            <p>{{todo.todo}}</p>
-                            {% endif %}
-                          </div>
-
-                          <a
-                            href="{% url 'delete' todo.id %}"
-                            class="btn-delete"
-                          >
                             <svg
+                              version="1.1"
                               xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="18"
                             >
-                              <path
-                                fill="#494C6B"
-                                fill-rule="evenodd"
-                                d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
-                              />
+                              <defs>
+                                <filter id="goo-12">
+                                  <feGaussianBlur
+                                    result="blur"
+                                    stdDeviation="4"
+                                    in="SourceGraphic"
+                                  ></feGaussianBlur>
+                                  <feColorMatrix
+                                    result="goo-12"
+                                    values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7"
+                                    mode="matrix"
+                                    in="blur"
+                                  ></feColorMatrix>
+                                  <feBlend
+                                    in2="goo-12"
+                                    in="SourceGraphic"
+                                  ></feBlend>
+                                </filter>
+                              </defs>
                             </svg>
-                          </a>
+                          </div>
                         </div>
 
-                        {% endfor %}
-                      </div>
-
-                      {% else %}
-                      <center><p class="no_todo">No todos added yet</p></center>
-                      {% endif %}
-                    </div>
-
-                    <div class="footer-todos-list" id="todos-footer">
-                      <div class="padder-footer">
-                        {% if user.is_authenticated %}
-                        <div class="container-amount">
-                          <p>{{no_todos}} items left</p>
-                        </div>
+                        {% if todo.completed %}
+                        <p class="completed-todo">{{todo.todo}}</p>
                         {% else %}
-                        <div class="container-amount">
-                          <p>0 items left</p>
-                        </div>
+                        <p>{{todo.todo}}</p>
                         {% endif %}
-
-                        <div class="filter-text">
-                          <ul>
-                            <li>
-                              <a id="filterAll" title="filter all todos">All</a>
-                            </li>
-                            <li>
-                              <a
-                                id="filterActive"
-                                title="filter active todolist"
-                                >Active</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                id="filterCompleted"
-                                title="filter compltetd todos"
-                                >completed</a
-                              >
-                            </li>
-                          </ul>
-                        </div>
-
-                        <div class="clear-completed">
-                          <a
-                            href="{% url 'deletecompletedtodos' %}"
-                            title="Delete all completed todolist"
-                            ><p>clear completed</p></a
-                          >
-                        </div>
                       </div>
-                    </div>
-                  </div>
-                </form>
 
-                <div class="sm-screen" id="sm-screen">
-                  <div class="padder-sm-footer">
-                    <ul>
-                      <li>
-                        <a id="filterAll" title="filter all todos">All</a>
-                      </li>
-                      <li>
-                        <a id="filterActive" title="filter active todolist"
-                          >Active</a
+                      <a href="{% url 'delete' todo.id %}" class="btn-delete">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="18"
                         >
-                      </li>
-                      <li>
-                        <a id="filterCompleted" title="filter compltetd todos"
-                          >completed</a
-                        >
-                      </li>
-                    </ul>
+                          <path
+                            fill="#494C6B"
+                            fill-rule="evenodd"
+                            d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+
+                    {% endfor %}
                   </div>
+
+                  {% else %}
+                  <center><p class="no_todo">No todos added yet</p></center>
+                  {% endif %}
                 </div>
 
-                <div class="container-bonux">
-                  <p>Drag and drop to reader list</p>
+                <div class="footer-todos-list" id="todos-footer">
+                  <div class="padder-footer">
+                    {% if user.is_authenticated %}
+                    <div class="container-amount">
+                      <p>{{no_todos}} items left</p>
+                    </div>
+                    {% else %}
+                    <div class="container-amount">
+                      <p>0 items left</p>
+                    </div>
+                    {% endif %}
 
-                  <!-- logout user -->
+                    <div class="filter-text">
+                      <ul>
+                        <li>
+                          <a id="filterAll" title="filter all todos">All</a>
+                        </li>
+                        <li>
+                          <a id="filterActive" title="filter active todolist"
+                            >Active</a
+                          >
+                        </li>
+                        <li>
+                          <a id="filterCompleted" title="filter compltetd todos"
+                            >completed</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
 
-                  <!-- {% if request.user.is_authenticated %}
+                    <div class="clear-completed">
+                      <a
+                        href="{% url 'deletecompletedtodos' %}"
+                        title="Delete all completed todolist"
+                        ><p>clear completed</p></a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <div class="sm-screen" id="sm-screen">
+              <div class="padder-sm-footer">
+                <ul>
+                  <li>
+                    <a id="filterAll" title="filter all todos">All</a>
+                  </li>
+                  <li>
+                    <a id="filterActive" title="filter active todolist"
+                      >Active</a
+                    >
+                  </li>
+                  <li>
+                    <a id="filterCompleted" title="filter compltetd todos"
+                      >completed</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="container-bonux">
+              <p>Drag and drop to reader list</p>
+
+              <!-- logout user -->
+
+              <!-- {% if request.user.is_authenticated %}
                   <p class="user">
                     Hi! {{user.username}},
                     <a href="{% url 'logout' %}">Logout</a>
                   </p>
                   {% endif %} -->
-                </div>
-              </div>
-            </center>
+            </div>
           </div>
-        </div>
+        </center>
       </div>
     </div>
+  </div>
+</div>
 
-    <script src="{% static '/js/index.js' %}"></script>
-  </body>
-</html>
+{% endblock %} <!-- closing enblock -->

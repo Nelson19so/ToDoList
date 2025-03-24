@@ -14,13 +14,13 @@ SECRET_KEY = 'django-insecure-&=*$u1wp0@9zq_g$%3_3!_)%(4rxjzlzduf(wf2gfd1j)5hs&8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['todolist-ivfl.onrender.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    "daphne", 
+    #"daphne", # comment for local live server
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # added white noise
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -64,8 +64,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'settings.wsgi.application'
-
+# WSGI_APPLICATION = 'settings.wsgi.application' # re-comment
+ASGI_APPLICATION = 'settings.wsgi.application' # comment
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
